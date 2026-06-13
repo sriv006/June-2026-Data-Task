@@ -1,0 +1,44 @@
+import pandas as pd
+import matplotlib.pyplot as plt
+
+print("Loading data...")
+
+data = {
+    'Name': ['Alex', 'Bella', 'Chris', 'David', 'Eva', 'Frank', 'Grace', 'Heidi', 'Ivan', 'Judy', 'Kevin', 'Liam', 'Mia', 'Noah', 'Olivia'],
+    'Gender': ['M', 'F', 'M', 'M', 'F', 'M', 'F', 'F', 'M', 'F', 'M', 'M', 'F', 'M', 'F'],
+    'Study_Hours': [2, 5, 3, None, 7, 2, 8, 4, 1, 6, 9, 3, 5, 2, 8], # One missing value
+    'Attendance_Pct': [60, 85, 70, 50, 90, 65, 95, 80, 40, 88, 98, 75, 82, 55, 92],
+    'Score': [55, 75, 60, 45, 85, 58, 92, 70, 40, 80, 95, 65, 78, 50, 88]
+}
+
+
+df = pd.DataFrame(data)
+print("Data loaded!\n")
+
+
+print("Cleaning data...")
+
+
+average_hours = df['Study_Hours'].mean()
+df['Study_Hours'] = df['Study_Hours'].fillna(average_hours)
+
+
+print("Data is clean!\n")
+
+print("--- Quick Stats ---")
+
+print(df.describe())
+
+df.plot.bar(x='Name', y='Score', color='green', title='Student Exam Scores')
+plt.ylabel('Score')
+plt.tight_layout() 
+plt.show()
+
+df.plot.scatter(x='Study_Hours', y='Score', color='blue', title='Study Hours vs. Score')
+plt.show()
+
+
+gender_counts = df['Gender'].value_counts()
+gender_counts.plot.pie(autopct='%1.1f%%', colors=['lightblue', 'pink'], title='Class Gender Split')
+plt.ylabel('') 
+plt.show()
